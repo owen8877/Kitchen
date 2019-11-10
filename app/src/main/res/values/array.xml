@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unit">
+        <item name="ENTRY">entry</item>
+        <item name="POUND">lb</item>
+        <item name="GRAM">g</item>
+        <item name="BOTTLE">bottle</item>
+        <item name="MILLIMETRE">ml</item>
+        <item name="BOX">box</item>
+    </string-array>
+</resources>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="tech.xdrd.kitchen.plan.PlanViewModel.PlanModel" />
+
+        <import type="tech.xdrd.kitchen.plan.PlanDialog.Mode" />
+
+        <import type="tech.xdrd.kitchen.model.Plan.Type" />
+
+        <import type="java.text.SimpleDateFormat" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/d_plan_root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/d_plan_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/d_plan_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@{item.mode == Mode.Add ? @color/yellow_300 : @color/orange_300}"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_close_black_24dp"
+                app:title="@{item.mode == Mode.Add ? @string/title_dialog_plan_add : @string/title_dialog_plan_modify}"
+                tools:background="@color/orange_300"
+                tools:title="@string/title_dialog_plan_modify" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/d_plan_bottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/d_plan_caption_date"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/d_plan_txt_date"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_plan_caption_date"
+                    tools:text="SAT, Nov 9, 2019" />
+
+                <TextView
+                    android:id="@+id/d_plan_caption_type"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TYPE"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_plan_txt_date" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/d_plan_chip_group_type"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_plan_caption_type"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/d_plan_chip_breakfast"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{item.type == Type.Breakfast.ordinal}"
+                        android:text="Breakfast" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/d_plan_chip_lunch"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{item.type == Type.Lunch.ordinal}"
+                        android:text="Lunch" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/d_plan_chip_dinner"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{item.type == Type.Dinner.ordinal}"
+                        android:text="Dinner" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/d_plan_caption_content"
+                    style="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONTENT"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_plan_chip_group_type" />
+
+                <EditText
+                    android:id="@+id/d_plan_edittext_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@={item.content}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_plan_caption_content"
+                    tools:text="红烧肉肉\n好吃的叉烧包\n各式煲汤\n想吃.jpg\nblabla\n继续凑字数\n凑啊凑" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

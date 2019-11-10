@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="tech.xdrd.kitchen.model.StorageIngredient" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/v_storage_ingredient_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="48dp" />
+
+        <ImageView
+            android:id="@+id/v_storage_ingredient_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/v_storage_ingredient_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="?attr/colorError" />
+
+        <TextView
+            android:id="@+id/v_storage_ingredient_name"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/v_storage_ingredient_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ingredient name" />
+
+        <TextView
+            android:id="@+id/v_storage_ingredient_quantity_number"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.quantity)}"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/v_storage_ingredient_quantity_unit"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1.5" />
+
+        <TextView
+            android:id="@+id/v_storage_ingredient_quantity_unit"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:text="@{@stringArray/unit[item.unit.ordinal()]}"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/v_storage_ingredient_quantity_number"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="bottle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="48dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/v_plan_txt_date"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="08"
+        android:gravity="center"
+        android:fontFamily="sans-serif-thin"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/v_plan_txt_dayofweek"
+        style="@style/TextAppearance.MaterialComponents.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FRI"
+        android:gravity="center"
+        android:fontFamily="sans-serif-thin"
+        android:textStyle="bold" />
+
+</LinearLayout>

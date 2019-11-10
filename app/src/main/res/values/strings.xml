@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Kitchen</string>
+    <string name="title_plan">Plan</string>
+    <string name="title_storage">Storage</string>
+    <string name="title_supply">Supply</string>
+
+    <string name="title_dialog_storage_add_ingredient">Add new item</string>
+    <string name="title_dialog_storage_modify_ingredient">Inspect this item</string>
+
+    <string name="title_dialog_plan_add">Initiate a new plan</string>
+    <string name="title_dialog_plan_modify">Inspect the plan</string>
+</resources>
