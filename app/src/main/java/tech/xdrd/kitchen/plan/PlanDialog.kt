@@ -82,7 +82,7 @@ class PlanDialog(val model: PlanViewModel.PlanModel) : FullScreenDialog() {
         binding.dPlanTxtDate.setOnClickListener {
             val dialog = DatePickerDialog(
                 context!!,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     model.date = Date(year - 1900, month, dayOfMonth)
                     binding.dPlanTxtDate.text =
                         SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(model.date)

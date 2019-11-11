@@ -32,11 +32,11 @@
                 android:id="@+id/d_plan_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@{item.mode == Mode.Add ? @color/yellow_300 : @color/orange_300}"
+                android:background="@{item.mode == Mode.Add ? @color/yellow_500 : @color/orange_500}"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_close_black_24dp"
                 app:title="@{item.mode == Mode.Add ? @string/title_dialog_plan_add : @string/title_dialog_plan_modify}"
-                tools:background="@color/orange_300"
+                tools:background="@color/yellow_500"
                 tools:title="@string/title_dialog_plan_modify" />
 
         </com.google.android.material.appbar.AppBarLayout>

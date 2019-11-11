@@ -34,8 +34,7 @@ open class Plan() : RealmObject() {
 
     enum class Type { Breakfast, Lunch, Dinner }
 
-    fun contentEqual(other: Plan?): Boolean {
-        if (other == null) return false
-        return date == other.date && type == other.type // TODO("Add compare dishes!")
-    }
+    fun getContent() = date.toString() + type.toString() +
+            if (dishes.isEmpty()) ""
+            else dishes.map { dish -> dish.name }.reduce { acc, s -> acc + '\n' + s }
 }

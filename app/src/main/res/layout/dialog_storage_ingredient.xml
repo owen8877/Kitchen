@@ -28,11 +28,11 @@
                 android:id="@+id/d_storage_ing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@{item.mode == Mode.Add ? @color/yellow_300 : @color/orange_300}"
+                android:background="@{item.mode == Mode.Add ? @color/yellow_500 : @color/orange_500}"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_close_black_24dp"
                 app:title="@{item.mode == Mode.Add ? @string/title_dialog_storage_add_ingredient : @string/title_dialog_storage_modify_ingredient}"
-                tools:background="@color/orange_300"
+                tools:background="@color/orange_500"
                 tools:title="@string/title_dialog_storage_modify_ingredient" />
 
         </com.google.android.material.appbar.AppBarLayout>

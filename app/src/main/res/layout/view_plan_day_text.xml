@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="48dp"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/v_plan_txt_date"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="08"
-        android:gravity="center"
-        android:fontFamily="sans-serif-thin"
-        android:layout_marginTop="8dp" />
+    <data>
 
-    <TextView
-        android:id="@+id/v_plan_txt_dayofweek"
-        style="@style/TextAppearance.MaterialComponents.Caption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="FRI"
-        android:gravity="center"
-        android:fontFamily="sans-serif-thin"
-        android:textStyle="bold" />
+        <variable
+            name="item"
+            type="tech.xdrd.kitchen.plan.PlanAdapter.HeaderViewHolder.DateInformation" />
 
-</LinearLayout>
+        <variable
+            name="valid"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/v_plan_txt_date"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.getDay()}"
+            android:textColor="@{valid ? @color/light_bg_dark_primary_text : @color/light_bg_dark_disabled_text}"
+            android:gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:layout_marginTop="8dp"
+            tools:text="08"
+            tools:textColor="@color/light_bg_dark_primary_text" />
+
+        <TextView
+            android:id="@+id/v_plan_txt_dayofweek"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{item.getWeekDay()}"
+            android:textColor="@{valid ? @color/light_bg_dark_primary_text : @color/light_bg_dark_disabled_text}"
+            android:gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:textStyle="bold"
+            tools:text="Fri"
+            tools:textColor="@color/light_bg_dark_secondary_text" />
+
+    </LinearLayout>
+</layout>

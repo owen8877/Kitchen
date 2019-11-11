@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmList
 import tech.xdrd.kitchen.Data
+import tech.xdrd.kitchen.Util
 import tech.xdrd.kitchen.model.Dish
 import tech.xdrd.kitchen.model.Plan
 import tech.xdrd.kitchen.model.Plan.Type.values
@@ -15,11 +16,10 @@ class PlanViewModel : ViewModel() {
     private var _planList = Data.MRCollection(Data.fetchPlanList())
     val planCollectionList: LiveData<List<Plan>>
         get() = _planList.innerState
-    var refDate = Date()
 
     class PlanModel(var mode: PlanDialog.Mode) {
         private var ref = Plan()
-        var date: Date = Date()
+        var date: Date = Util.getToday()
         var type: Int = -1
         var content: String = ""
 
@@ -48,7 +48,7 @@ class PlanViewModel : ViewModel() {
         fun add() {
             Data.execute(Realm.Transaction { realm ->
                 run {
-                    realm.insert(toPlanItem())
+                    realm.insertOrUpdate(toPlanItem())
                 }
             })
         }
