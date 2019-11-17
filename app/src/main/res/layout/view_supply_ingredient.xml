@@ -74,5 +74,14 @@
             tools:text="bottle"
             tools:textColor="@color/light_bg_dark_secondary_text" />
 
+        <View
+            android:id="@+id/v_supply_ingredient_touchable"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/v_supply_ingredient_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

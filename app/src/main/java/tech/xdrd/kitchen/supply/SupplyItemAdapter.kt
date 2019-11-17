@@ -131,7 +131,7 @@ class SupplyItemAdapter(private val l: (View, SupplyIngredient) -> Unit) :
     class ViewHolder(val binding: ViewSupplyIngredientBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: SupplyIngredient, l: (View, SupplyIngredient) -> Unit) {
-            binding.root.setOnClickListener { v -> l(v, item) }
+            binding.vSupplyIngredientTouchable.setOnClickListener { v -> l(v, item) }
             binding.item = item
             binding.vSupplyIngredientCheckbox.setOnClickListener { v ->
                 v as CheckBox
