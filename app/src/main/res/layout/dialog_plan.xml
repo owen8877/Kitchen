@@ -35,9 +35,9 @@
                 android:background="@{item.mode == Mode.Add ? @color/yellow_500 : @color/orange_500}"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_close_black_24dp"
-                app:title="@{item.mode == Mode.Add ? @string/title_dialog_plan_add : @string/title_dialog_plan_modify}"
+                app:title="@{item.mode == Mode.Add ? @string/dialog_plan_title_add : @string/dialog_plan_title_modify}"
                 tools:background="@color/yellow_500"
-                tools:title="@string/title_dialog_plan_modify" />
+                tools:title="@string/dialog_plan_title_modify" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

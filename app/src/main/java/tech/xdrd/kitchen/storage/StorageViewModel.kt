@@ -7,6 +7,7 @@ import io.realm.Realm
 import tech.xdrd.kitchen.Data
 import tech.xdrd.kitchen.model.Ingredient.Unit
 import tech.xdrd.kitchen.model.StorageIngredient
+import java.util.*
 
 class StorageViewModel : ViewModel() {
     private val _storageList = Data.MRCollection(Data.fetchStorageList())
@@ -14,7 +15,7 @@ class StorageViewModel : ViewModel() {
         get() = _storageList.innerState
 
     class IngredientModel(val mode: IngredientDialog.Mode) {
-        private var ref = StorageIngredient()
+        private lateinit var ref: StorageIngredient
         var name = ""
         var quantity = 0.0
         var unit = -1
@@ -26,7 +27,7 @@ class StorageViewModel : ViewModel() {
             return name.isNotBlank() && quantity >= 0.0 && unit >= 0
         }
 
-        private fun toIngredientItem(): StorageIngredient {
+        private fun toStorageIngredient(): StorageIngredient {
             return StorageIngredient(name, quantity, Unit.values()[unit])
         }
 
@@ -39,11 +40,20 @@ class StorageViewModel : ViewModel() {
         }
 
         fun add() {
-            Data.execute(Realm.Transaction { realm -> run { realm.insert(toIngredientItem()) } })
+            Data.execute(Realm.Transaction { realm ->
+                run {
+                    val storageIngredient = toStorageIngredient()
+                    realm.insert(storageIngredient)
+                    storageIngredient.addRecord(Date(), observation = true)
+                }
+            })
         }
 
         fun delete() {
-            Data.execute(Realm.Transaction { ref.deleteFromRealm() })
+            Data.execute(Realm.Transaction {
+                ref.records.deleteAllFromRealm()
+                ref.deleteFromRealm()
+            })
         }
 
         fun refresh() {
@@ -52,11 +62,10 @@ class StorageViewModel : ViewModel() {
 
         fun update() {
             Data.execute(Realm.Transaction {
-                run {
                     ref.name = name
                     ref.quantity = quantity
                     ref.unit = Unit.values()[unit]
-                }
+                ref.addRecord(Date(), observation = true)
             })
         }
     }

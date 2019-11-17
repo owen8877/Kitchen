@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">Kitchen</string>
-    <string name="title_plan">Plan</string>
-    <string name="title_storage">Storage</string>
-    <string name="title_supply">Supply</string>
+    <string name="fragment_plan_title">Plan</string>
+    <string name="fragment_storage_title">Storage</string>
+    <string name="fragment_supply_title">Supply</string>
 
-    <string name="title_dialog_storage_add_ingredient">Add new item</string>
-    <string name="title_dialog_storage_modify_ingredient">Inspect this item</string>
+    <string name="dialog_storage_title_add_ingredient">Add new item</string>
+    <string name="dialog_storage_title_modify_ingredient">Inspect this item</string>
 
-    <string name="title_dialog_plan_add">Initiate a new plan</string>
-    <string name="title_dialog_plan_modify">Inspect the plan</string>
+    <string name="dialog_plan_title_add">Initiate a new plan</string>
+    <string name="dialog_plan_title_modify">Inspect the plan</string>
+
+    <string name="dialog_supply_title_add_ingredient">Create a supply item</string>
+    <string name="dialog_supply_title_modify_ingredient">Inspect this item</string>
+    <string name="view_supply_bought_item_notice">Bought items</string>
+    <string name="view_supply_decoration_placeholder">[Placeholder]</string>
 </resources>

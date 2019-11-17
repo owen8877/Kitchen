@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="tech.xdrd.kitchen.model.SupplyIngredient" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/v_supply_ingredient_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="48dp" />
+
+        <CheckBox
+            android:id="@+id/v_supply_ingredient_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/grey_500"
+            android:checked="@{item.bought}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/v_supply_ingredient_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:checked="true" />
+
+        <TextView
+            android:id="@+id/v_supply_ingredient_name"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            android:textColor="@{item.bought ? @color/light_bg_dark_disabled_text : @color/light_bg_dark_primary_text}"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/v_supply_ingredient_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ingredient name"
+            tools:textColor="@color/light_bg_dark_primary_text" />
+
+        <TextView
+            android:id="@+id/v_supply_ingredient_quantity_number"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.quantity)}"
+            android:layout_marginEnd="4dp"
+            android:textColor="@{item.bought ? @color/light_bg_dark_disabled_text : @color/light_bg_dark_primary_text}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/v_supply_ingredient_quantity_unit"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1.5"
+            tools:textColor="@color/light_bg_dark_primary_text" />
+
+        <TextView
+            android:id="@+id/v_supply_ingredient_quantity_unit"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:text="@{@stringArray/unit[item.unit.ordinal()]}"
+            android:textColor="@{item.bought ? @color/light_bg_dark_disabled_text : @color/light_bg_dark_secondary_text}"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/v_supply_ingredient_quantity_number"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="bottle"
+            tools:textColor="@color/light_bg_dark_secondary_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

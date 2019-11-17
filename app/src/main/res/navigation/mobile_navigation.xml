@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_plan"
         android:name="tech.xdrd.kitchen.plan.PlanFragment"
-        android:label="@string/title_plan"
+        android:label="@string/fragment_plan_title"
         tools:layout="@layout/fragment_plan" />
 
     <fragment
         android:id="@+id/navigation_storage"
         android:name="tech.xdrd.kitchen.storage.StorageFragment"
-        android:label="@string/title_storage"
+        android:label="@string/fragment_storage_title"
         tools:layout="@layout/fragment_storage" />
 
     <fragment
         android:id="@+id/navigation_supply"
         android:name="tech.xdrd.kitchen.supply.SupplyFragment"
-        android:label="@string/title_supply"
+        android:label="@string/fragment_supply_title"
         tools:layout="@layout/fragment_supply" />
 </navigation>

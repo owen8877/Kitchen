@@ -10,14 +10,6 @@ class MainApplication : Application() {
 
         Realm.init(this)
         Data.init()
-
-//        if (BuildConfig.DEBUG)
-//            Stetho.initialize(
-//                Stetho.newInitializerBuilder(this)
-//                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-//                    .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-//                    .build()
-//            )
     }
 
     override fun onTerminate() {

@@ -7,38 +7,38 @@
 
         <variable
             name="item"
-            type="tech.xdrd.kitchen.storage.StorageViewModel.IngredientModel" />
+            type="tech.xdrd.kitchen.supply.SupplyViewModel.SupplyIngredientModel" />
 
-        <import type="tech.xdrd.kitchen.storage.IngredientDialog.Mode" />
+        <import type="tech.xdrd.kitchen.supply.SupplyIngredientDialog.Mode" />
     </data>
 
     <LinearLayout
-        android:id="@+id/d_storage_ing_root"
+        android:id="@+id/d_supply_ing_root"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/d_storage_ing_appbar"
+            android:id="@+id/d_supply_ing_appbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/d_storage_ing_toolbar"
+                android:id="@+id/d_supply_ing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@{item.mode == Mode.Add ? @color/yellow_500 : @color/orange_500}"
                 app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_close_black_24dp"
-                app:title="@{item.mode == Mode.Add ? @string/dialog_storage_title_add_ingredient : @string/dialog_storage_title_modify_ingredient}"
+                app:title="@{item.mode == Mode.Add ? @string/dialog_supply_title_add_ingredient : @string/dialog_supply_title_modify_ingredient}"
                 tools:background="@color/orange_500"
-                tools:title="@string/dialog_storage_title_modify_ingredient" />
+                tools:title="@string/dialog_supply_title_modify_ingredient" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/d_storage_ing_bottomSheet"
+            android:id="@+id/d_supply_ing_bottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true">
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/d_storage_ing_til_name"
+                    android:id="@+id/d_supply_ing_til_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -59,30 +59,30 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/d_storage_ing_tiet_name"
+                        android:id="@+id/d_supply_ing_tiet_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Name of ingredient"
                         android:singleLine="true"
                         android:lines="1"
                         android:imeOptions="actionNext"
-                        android:nextFocusForward="@id/d_storage_ing_tiet_quantity"
+                        android:nextFocusForward="@id/d_supply_ing_tiet_quantity"
                         android:text="@={item.name}"
                         tools:text="Name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/d_storage_ing_til_quantity"
+                    android:id="@+id/d_supply_ing_til_quantity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    app:layout_constraintEnd_toStartOf="@id/d_storage_ing_spinner"
-                    app:layout_constraintStart_toStartOf="@+id/d_storage_ing_guideline_vertical_1"
-                    app:layout_constraintBottom_toBottomOf="@id/d_storage_ing_btn_m1"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_til_name">
+                    app:layout_constraintBottom_toBottomOf="@id/d_supply_ing_btn_m1"
+                    app:layout_constraintEnd_toStartOf="@id/d_supply_ing_spinner"
+                    app:layout_constraintStart_toStartOf="@+id/d_supply_ing_guideline_vertical_1"
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_til_name">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/d_storage_ing_tiet_quantity"
+                        android:id="@+id/d_supply_ing_tiet_quantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Quantity"
@@ -93,19 +93,19 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/d_storage_ing_spinner"
+                    android:id="@+id/d_supply_ing_spinner"
                     style="@style/TextAppearance.MaterialComponents.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/unit"
                     android:spinnerMode="dropdown"
                     android:selectedItemPosition="@={item.unit}"
-                    app:layout_constraintBottom_toBottomOf="@id/d_storage_ing_til_quantity"
-                    app:layout_constraintEnd_toEndOf="@id/d_storage_ing_guideline_vertical_2"
-                    app:layout_constraintTop_toTopOf="@+id/d_storage_ing_til_quantity" />
+                    app:layout_constraintBottom_toBottomOf="@id/d_supply_ing_til_quantity"
+                    app:layout_constraintEnd_toEndOf="@id/d_supply_ing_guideline_vertical_2"
+                    app:layout_constraintTop_toTopOf="@+id/d_supply_ing_til_quantity" />
 
                 <Button
-                    android:id="@+id/d_storage_ing_btn_m1"
+                    android:id="@+id/d_supply_ing_btn_m1"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:backgroundTint="@color/grey_300"
                     android:textColor="@color/light_bg_dark_primary_text"
@@ -114,12 +114,12 @@
                     android:text="-1"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toStartOf="@id/d_storage_ing_guideline_vertical_1"
+                    app:layout_constraintEnd_toStartOf="@id/d_supply_ing_guideline_vertical_1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_btn_m01" />
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_btn_m01" />
 
                 <Button
-                    android:id="@+id/d_storage_ing_btn_m01"
+                    android:id="@+id/d_supply_ing_btn_m01"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:backgroundTint="@color/grey_300"
                     android:textColor="@color/light_bg_dark_primary_text"
@@ -128,12 +128,12 @@
                     android:text="-0.1"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toEndOf="@id/d_storage_ing_guideline_vertical_1"
+                    app:layout_constraintEnd_toEndOf="@id/d_supply_ing_guideline_vertical_1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_til_name" />
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_til_name" />
 
                 <Button
-                    android:id="@+id/d_storage_ing_btn_p1"
+                    android:id="@+id/d_supply_ing_btn_p1"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:backgroundTint="@color/grey_300"
                     android:textColor="@color/light_bg_dark_primary_text"
@@ -143,11 +143,11 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/d_storage_ing_guideline_vertical_2"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_btn_p01" />
+                    app:layout_constraintStart_toEndOf="@id/d_supply_ing_guideline_vertical_2"
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_btn_p01" />
 
                 <Button
-                    android:id="@+id/d_storage_ing_btn_p01"
+                    android:id="@+id/d_supply_ing_btn_p01"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:backgroundTint="@color/grey_300"
                     android:textColor="@color/light_bg_dark_primary_text"
@@ -157,42 +157,41 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/d_storage_ing_guideline_vertical_2"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_til_name" />
+                    app:layout_constraintStart_toEndOf="@id/d_supply_ing_guideline_vertical_2"
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_til_name" />
 
                 <TextView
-                    android:id="@+id/d_storage_ing_caption_history"
+                    android:id="@+id/d_supply_ing_caption_option"
                     style="@style/TextAppearance.MaterialComponents.Caption"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HISTORY"
+                    android:text="OPTION"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_btn_m1" />
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_btn_m1" />
 
-                <TextView
-                    android:id="@+id/d_storage_ing_txt_history"
-                    style="@style/TextAppearance.MaterialComponents.Body1"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/d_supply_ing_checkbox_recurrent"
+                    android:checked="@={item.recurrent}"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_caption_history"
-                    tools:text="(Obs) SAT, Nov 09 - 1.7\n(Obs) Thu, Nov 07 - 2.1\n(Pre) SAT, Nov 07 - 2.5\n" />
+                    android:layout_marginTop="8dp"
+                    android:text="Recurrent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/d_supply_ing_caption_option" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/d_storage_ing_guideline_vertical_1"
+                    android:id="@+id/d_supply_ing_guideline_vertical_1"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintGuide_percent="0.25" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/d_storage_ing_guideline_vertical_2"
+                    android:id="@+id/d_supply_ing_guideline_vertical_2"
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

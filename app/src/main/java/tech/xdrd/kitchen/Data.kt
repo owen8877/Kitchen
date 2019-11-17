@@ -6,6 +6,7 @@ import io.realm.RealmConfiguration
 import io.realm.RealmResults
 import tech.xdrd.kitchen.model.Plan
 import tech.xdrd.kitchen.model.StorageIngredient
+import tech.xdrd.kitchen.model.SupplyIngredient
 
 
 object Data {
@@ -39,6 +40,10 @@ object Data {
 
     fun fetchStorageList(): RealmResults<StorageIngredient> {
         return realm.where(StorageIngredient::class.java).findAll()
+    }
+
+    fun fetchSupplyList(): RealmResults<SupplyIngredient> {
+        return realm.where(SupplyIngredient::class.java).findAll()
     }
 
     fun fetchPlanList(): RealmResults<Plan> {

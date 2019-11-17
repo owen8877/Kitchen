@@ -46,9 +46,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
     implementation 'androidx.paging:paging-runtime:2.1.0'
-    implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.uphyca:stetho_realm:2.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

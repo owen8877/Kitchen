@@ -25,29 +25,22 @@ class PlanAdapter(private val l: (View, Plan) -> Unit) :
     var showPast = true // false for only future
         set(value) {
             field = value
-            beforeNotifyDataSetChanged()
+            onDataSetChanged()
         }
     var source = listOf<Plan>()
         set(value) {
             field = value
-            beforeNotifyDataSetChanged()
+            onDataSetChanged()
         }
     private val mData = mutableListOf<PlanOrDecoration>()
 
-//    companion object {
-//        val ITEM(old: Plan, new: Plan): Boolean = old.id == new.id
-//            override fun areContentsTheSame(old: Plan, new: Plan): Boolean = old.contentEqual(new)
-//        }
-//    }
-
-    private fun beforeNotifyDataSetChanged() {
-        decorateData()
+    private fun onDataSetChanged() {
         val newDecoratedData = decorateData()
         val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 val old = mData[oldItemPosition]
                 val new = newDecoratedData[newItemPosition]
-                return old.idCache?.equals(new.idCache) ?: new.idCache == null
+                return old.idCache?.equals(new.idCache) ?: (new.idCache == null)
             }
 
             override fun getOldListSize() = mData.size
@@ -57,7 +50,7 @@ class PlanAdapter(private val l: (View, Plan) -> Unit) :
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 val old = mData[oldItemPosition]
                 val new = newDecoratedData[newItemPosition]
-                return old.contentCache?.equals(new.contentCache) ?: new.contentCache == null
+                return old.contentCache?.equals(new.contentCache) ?: (new.contentCache == null)
             }
         })
         mData.clear()
