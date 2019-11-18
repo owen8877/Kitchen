@@ -66,10 +66,8 @@ class PlanAdapter(private val l: (View, Plan) -> Unit) :
             source.filter { plan -> plan.date >= today }
 
         val sortedData = sourceList.sortedWith(kotlin.Comparator { o1, o2 ->
-            run {
-                if (o1.date == o2.date) o1.type.ordinal.compareTo(o2.type.ordinal)
-                else o1.date.compareTo(o2.date)
-            }
+            if (o1.date == o2.date) o1.type.ordinal.compareTo(o2.type.ordinal)
+            else o1.date.compareTo(o2.date)
         })
         var currentDate = sortedData[0].date
         val data = mutableListOf(PlanOrDecoration(null, currentDate))

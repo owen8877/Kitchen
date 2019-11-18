@@ -30,25 +30,17 @@ object Data {
         realm = Realm.getInstance(config)
     }
 
-    fun close() {
-        realm.close()
-    }
+    fun close() = realm.close()
 
-    fun execute(t: Realm.Transaction) {
-        realm.executeTransaction(t)
-    }
+    fun execute(t: Realm.Transaction) = realm.executeTransaction(t)
 
-    fun fetchStorageList(): RealmResults<StorageIngredient> {
-        return realm.where(StorageIngredient::class.java).findAll()
-    }
+    fun fetchStorageList(): RealmResults<StorageIngredient> =
+        realm.where(StorageIngredient::class.java).findAll()
 
-    fun fetchSupplyList(): RealmResults<SupplyIngredient> {
-        return realm.where(SupplyIngredient::class.java).findAll()
-    }
+    fun fetchSupplyList(): RealmResults<SupplyIngredient> =
+        realm.where(SupplyIngredient::class.java).findAll()
 
-    fun fetchPlanList(): RealmResults<Plan> {
-        return realm.where(Plan::class.java).findAll()
-    }
+    fun fetchPlanList(): RealmResults<Plan> = realm.where(Plan::class.java).findAll()
 
     class MRCollection<T>(private val source: RealmResults<T>) {
         val innerState = MutableLiveData<List<T>>().apply { value = source }

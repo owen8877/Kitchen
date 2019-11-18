@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import tech.xdrd.kitchen.R
 import tech.xdrd.kitchen.databinding.FragmentSupplyBinding
+import tech.xdrd.kitchen.supply.SupplyIngredientDialog.Mode
+import tech.xdrd.kitchen.supply.SupplyViewModel.SupplyIngredientModel
 
 class SupplyFragment : Fragment() {
     private lateinit var binding: FragmentSupplyBinding
@@ -29,17 +31,14 @@ class SupplyFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_supply, container, false)
 
         adapter = SupplyItemAdapter { _, item ->
-            val ingredientModel =
-                SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Modify)
-            ingredientModel.adapt(item)
+            val ingredientModel = SupplyIngredientModel(Mode.Modify).also { it.adapt(item) }
             val dialog = SupplyIngredientDialog(ingredientModel)
             dialog.show(fragmentManager!!, dialog.tag)
         }
         binding.fSupplyRecyclerview.adapter = adapter
 
         binding.fSupplyFab.setOnClickListener {
-            val ingredientModel =
-                SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Add)
+            val ingredientModel = SupplyIngredientModel(Mode.Add)
             val dialog = SupplyIngredientDialog(ingredientModel)
             dialog.show(fragmentManager!!, dialog.tag)
         }
@@ -51,9 +50,7 @@ class SupplyFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         supplyViewModel = ViewModelProviders.of(this).get(SupplyViewModel::class.java)
 
-        supplyViewModel.supplyList.observe(viewLifecycleOwner, Observer {
-            adapter.source = it
-        })
+        supplyViewModel.supplyList.observe(viewLifecycleOwner, Observer { adapter.source = it })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

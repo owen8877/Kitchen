@@ -48,33 +48,29 @@ class PlanDialog(val model: PlanViewModel.PlanModel) : FullScreenDialog() {
         )
         binding.dPlanToolbar.setNavigationOnClickListener { run { dismiss() } }
         binding.dPlanToolbar.setOnMenuItemClickListener { item ->
-            run {
-                when (item.itemId) {
-                    R.id.m_plan_done -> {
-                        when (mode) {
-                            Mode.Add -> model.add()
-                            Mode.Modify -> model.update()
-                        }
-                        dismiss()
+            when (item.itemId) {
+                R.id.m_plan_done -> {
+                    when (mode) {
+                        Mode.Add -> model.add()
+                        Mode.Modify -> model.update()
                     }
-                    R.id.m_plan_modify_delete -> {
-                        AlertDialog.Builder(context!!)
-                            .setTitle("Deletion confirmation")
-                            .setMessage("Do you really want to delete this plan?")
-                            .setCancelable(true)
-                            .setPositiveButton("Yes") { dialog, _ ->
-                                run {
-                                    model.delete()
-                                    dialog.dismiss()
-                                    dismiss()
-                                }
-                            }
-                            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-                            .show()
-                    }
+                    dismiss()
                 }
-                true
+                R.id.m_plan_modify_delete -> {
+                    AlertDialog.Builder(context!!)
+                        .setTitle("Deletion confirmation")
+                        .setMessage("Do you really want to delete this plan?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") { dialog, _ ->
+                            model.delete()
+                            dialog.dismiss()
+                            dismiss()
+                        }
+                        .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+                        .show()
+                }
             }
+            true
         }
 
         binding.dPlanTxtDate.text =
@@ -109,9 +105,7 @@ class PlanDialog(val model: PlanViewModel.PlanModel) : FullScreenDialog() {
         binding.dPlanEdittextContent.addTextChangedListener { run { model.refresh() } }
 
         model.valid.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.dPlanToolbar.menu.findItem(R.id.m_plan_done)?.isEnabled = it
-            }
+            binding.dPlanToolbar.menu.findItem(R.id.m_plan_done)?.isEnabled = it
         })
     }
 }

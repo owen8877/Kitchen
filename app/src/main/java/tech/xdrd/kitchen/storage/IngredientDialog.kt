@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import tech.xdrd.kitchen.R
@@ -39,94 +39,73 @@ class IngredientDialog(val model: StorageViewModel.IngredientModel) : FullScreen
                 Mode.Modify -> R.menu.storage_modify_ingredient
             }
         )
-        binding.dStorageIngToolbar.setNavigationOnClickListener { run { dismiss() } }
+        binding.dStorageIngToolbar.setNavigationOnClickListener { dismiss() }
         binding.dStorageIngToolbar.setOnMenuItemClickListener { item ->
-            run {
-                when (item.itemId) {
-                    R.id.m_storage_ingredient_done -> {
-                        when (mode) {
-                            Mode.Add -> model.add()
-                            Mode.Modify -> model.update()
+            when (item.itemId) {
+                R.id.m_storage_ingredient_done -> {
+                    when (mode) {
+                        Mode.Add -> model.add()
+                        Mode.Modify -> model.update()
+                    }
+                    dismiss()
+                }
+                R.id.m_storage_modify_ingredient_delete -> {
+                    AlertDialog.Builder(context!!)
+                        .setTitle("Deletion confirmation")
+                        .setMessage("Do you really want to delete this ingredient?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") { dialog, _ ->
+                            model.delete()
+                            dialog.dismiss()
+                            dismiss()
                         }
-                        dismiss()
-                    }
-                    R.id.m_storage_modify_ingredient_delete -> {
-                        AlertDialog.Builder(context!!)
-                            .setTitle("Deletion confirmation")
-                            .setMessage("Do you really want to delete this ingredient?")
-                            .setCancelable(true)
-                            .setPositiveButton("Yes") { dialog, _ ->
-                                run {
-                                    model.delete()
-                                    dialog.dismiss()
-                                    dismiss()
-                                }
-                            }
-                            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-                            .show()
-                    }
+                        .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+                        .show()
                 }
-                true
             }
+            true
         }
 
-        binding.dStorageIngTietName.addTextChangedListener(
-            afterTextChanged = { text ->
-                run {
-                    if (text.isNullOrBlank()) {
-                        binding.dStorageIngTietName.error = "Please input a valid name!"
-                    }
-                    model.refresh()
-                }
-            })
-        binding.dStorageIngTietQuantity.addTextChangedListener(
-            afterTextChanged = { text ->
-                run {
-                    if (text.isNullOrBlank() || text.toString().toDouble() < 0.0) {
-                        binding.dStorageIngTietQuantity.error = "Please input a positive quantity!"
-                    }
-                    model.refresh()
-                }
-            })
+        binding.dStorageIngTietName.doAfterTextChanged { text ->
+            if (text.isNullOrBlank()) {
+                binding.dStorageIngTietName.error = "Please input a valid name!"
+            }
+            model.refresh()
+        }
+        binding.dStorageIngTietQuantity.doAfterTextChanged { text ->
+            if (text.isNullOrBlank() || text.toString().toDouble() < 0.0) {
+                binding.dStorageIngTietQuantity.error = "Please input a positive quantity!"
+            }
+            model.refresh()
+        }
 
-        binding.dStorageIngBtnM01.setOnClickListener { _ ->
-            run {
-                binding.dStorageIngTietQuantity.setText(
-                    String.format("%.1f", 0.0.coerceAtLeast(model.quantity - 0.1)),
-                    TextView.BufferType.EDITABLE
-                )
-            }
+        binding.dStorageIngBtnM01.setOnClickListener {
+            binding.dStorageIngTietQuantity.setText(
+                String.format("%.1f", 0.0.coerceAtLeast(model.quantity - 0.1)),
+                TextView.BufferType.EDITABLE
+            )
         }
-        binding.dStorageIngBtnM1.setOnClickListener { _ ->
-            run {
-                binding.dStorageIngTietQuantity.setText(
-                    String.format("%.1f", 0.0.coerceAtLeast(model.quantity - 1.0)),
-                    TextView.BufferType.EDITABLE
-                )
-            }
+        binding.dStorageIngBtnM1.setOnClickListener {
+            binding.dStorageIngTietQuantity.setText(
+                String.format("%.1f", 0.0.coerceAtLeast(model.quantity - 1.0)),
+                TextView.BufferType.EDITABLE
+            )
         }
-        binding.dStorageIngBtnP01.setOnClickListener { _ ->
-            run {
-                binding.dStorageIngTietQuantity.setText(
-                    String.format("%.1f", (model.quantity + 0.1)),
-                    TextView.BufferType.EDITABLE
-                )
-            }
+        binding.dStorageIngBtnP01.setOnClickListener {
+            binding.dStorageIngTietQuantity.setText(
+                String.format("%.1f", (model.quantity + 0.1)),
+                TextView.BufferType.EDITABLE
+            )
         }
-        binding.dStorageIngBtnP1.setOnClickListener { _ ->
-            run {
-                binding.dStorageIngTietQuantity.setText(
-                    String.format("%.1f", (model.quantity + 1.0)),
-                    TextView.BufferType.EDITABLE
-                )
-            }
+        binding.dStorageIngBtnP1.setOnClickListener {
+            binding.dStorageIngTietQuantity.setText(
+                String.format("%.1f", (model.quantity + 1.0)),
+                TextView.BufferType.EDITABLE
+            )
         }
 
         model.valid.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.dStorageIngToolbar.menu.findItem(R.id.m_storage_ingredient_done)
-                    ?.isEnabled = it
-            }
+            binding.dStorageIngToolbar.menu.findItem(R.id.m_storage_ingredient_done)?.isEnabled = it
         })
     }
 }

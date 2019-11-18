@@ -9,7 +9,7 @@ import tech.xdrd.kitchen.Data
 import tech.xdrd.kitchen.Util
 import tech.xdrd.kitchen.model.Dish
 import tech.xdrd.kitchen.model.Plan
-import tech.xdrd.kitchen.model.Plan.Type.values
+import tech.xdrd.kitchen.model.Plan.Type
 import java.util.*
 
 class PlanViewModel : ViewModel() {
@@ -40,40 +40,24 @@ class PlanViewModel : ViewModel() {
                 .map(String::trim)
                 .filter(String::isNotEmpty)
                 .map(::Dish)
-            val intermediate = RealmList<Dish>()
-            intermediate.addAll(list)
-            return Plan(date, values()[type], intermediate)
+            return Plan(date, Type.values()[type], RealmList<Dish>().also { it.addAll(list) })
         }
 
-        fun add() {
-            Data.execute(Realm.Transaction { realm ->
-                run {
-                    realm.insertOrUpdate(toPlanItem())
-                }
-            })
-        }
+        fun add() = Data.execute(Realm.Transaction { realm -> realm.insertOrUpdate(toPlanItem()) })
 
-        fun delete() {
-            Data.execute(Realm.Transaction { ref.deleteFromRealm() })
-        }
+        fun delete() = Data.execute(Realm.Transaction { ref.deleteFromRealm() })
 
-        fun refresh() {
-            _valid.apply { value = isInputValid() }
-        }
+        fun refresh() = _valid.apply { value = isInputValid() }
 
-        private fun isInputValid(): Boolean {
-            return type in values().indices && content.isNotBlank()
-        }
+        private fun isInputValid() = type in Type.values().indices && content.isNotBlank()
 
         fun update() {
             Data.execute(Realm.Transaction {
-                run {
-                    val item = toPlanItem()
-                    ref.date = item.date
-                    ref.type = item.type
-                    ref.dishes.removeAll { true }
-                    ref.dishes.addAll(item.dishes)
-                }
+                val item = toPlanItem()
+                ref.date = item.date
+                ref.type = item.type
+                ref.dishes.clear()
+                ref.dishes.addAll(item.dishes)
             })
         }
     }

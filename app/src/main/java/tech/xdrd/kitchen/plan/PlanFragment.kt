@@ -30,12 +30,10 @@ class PlanFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_plan, container, false)
 
         adapter = PlanAdapter { _, item ->
-            run {
-                val planModel = PlanViewModel.PlanModel(PlanDialog.Mode.Modify)
-                planModel.adapt(item)
-                val dialog = PlanDialog(planModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val planModel = PlanViewModel.PlanModel(PlanDialog.Mode.Modify)
+            planModel.adapt(item)
+            val dialog = PlanDialog(planModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
         binding.fPlanRecyclerview.adapter = adapter
 
@@ -43,11 +41,9 @@ class PlanFragment : Fragment() {
         binding.fPlanRecyclerview.addItemDecoration(StickyItemDecoration(adapter))
 
         binding.fPlanFab.setOnClickListener {
-            run {
-                val planModel = PlanViewModel.PlanModel(PlanDialog.Mode.Add)
-                val dialog = PlanDialog(planModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val planModel = PlanViewModel.PlanModel(PlanDialog.Mode.Add)
+            val dialog = PlanDialog(planModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
 
         return binding.root
@@ -57,9 +53,7 @@ class PlanFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PlanViewModel::class.java)
 
-        viewModel.planCollectionList.observe(
-            viewLifecycleOwner,
-            Observer { it?.let { adapter.source = it } })
+        viewModel.planCollectionList.observe(viewLifecycleOwner, Observer { adapter.source = it })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

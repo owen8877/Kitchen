@@ -1,6 +1,5 @@
 package tech.xdrd.kitchen.supply
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -47,10 +46,8 @@ class SupplyViewModel : ViewModel() {
 
         // Delete bought and one-time items
         Data.execute(Realm.Transaction {
-            boughtList.where().equalTo("recurrent", false).findAll().forEach {
-                Log.d("delete", it.toString())
-                it.deleteFromRealm()
-            }
+            boughtList.where().equalTo("recurrent", false).findAll()
+                .forEach { it.deleteFromRealm() }
         })
 
         // Revert recurrent items to unbought
@@ -74,19 +71,15 @@ class SupplyViewModel : ViewModel() {
         private val _valid = MutableLiveData<Boolean>(false)
         val valid: LiveData<Boolean> = _valid
 
-        private fun isInputValid(): Boolean {
-            return name.isNotBlank() && quantity >= 0.0 && unit >= 0
-        }
+        private fun isInputValid() = name.isNotBlank() && quantity >= 0.0 && unit >= 0
 
-        private fun toSupplyIngredient(): SupplyIngredient {
-            return SupplyIngredient(
-                name,
-                quantity,
-                Ingredient.Unit.values()[unit],
-                recurrent,
-                Date()
-            );
-        }
+        private fun toSupplyIngredient() = SupplyIngredient(
+            name,
+            quantity,
+            Ingredient.Unit.values()[unit],
+            recurrent,
+            Date()
+        )
 
         fun adapt(item: SupplyIngredient) {
             ref = item
@@ -94,35 +87,21 @@ class SupplyViewModel : ViewModel() {
             quantity = item.quantity
             unit = item.unit.ordinal
             recurrent = item.recurrent
+
             _valid.apply { value = true }
         }
 
-        fun add() {
-            Data.execute(Realm.Transaction { realm ->
-                run {
-                    val storageIngredient = toSupplyIngredient()
-                    realm.insert(storageIngredient)
-                }
-            })
-        }
+        fun add() = Data.execute(Realm.Transaction { realm -> realm.insert(toSupplyIngredient()) })
 
-        fun delete() {
-            Data.execute(Realm.Transaction {
-                ref.deleteFromRealm()
-            })
-        }
+        fun delete() = Data.execute(Realm.Transaction { ref.deleteFromRealm() })
 
-        fun refresh() {
-            _valid.apply { value = isInputValid() }
-        }
+        fun refresh() = _valid.apply { value = isInputValid() }
 
-        fun update() {
-            Data.execute(Realm.Transaction {
-                ref.name = name
-                ref.quantity = quantity
-                ref.unit = Ingredient.Unit.values()[unit]
-                ref.recurrent = recurrent
-            })
-        }
+        fun update() = Data.execute(Realm.Transaction {
+            ref.name = name
+            ref.quantity = quantity
+            ref.unit = Ingredient.Unit.values()[unit]
+            ref.recurrent = recurrent
+        })
     }
 }

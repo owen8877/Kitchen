@@ -27,9 +27,7 @@ class StorageItemAdapter(private val l: (View, StorageIngredient) -> Unit) :
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]

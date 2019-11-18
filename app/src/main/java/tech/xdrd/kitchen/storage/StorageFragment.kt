@@ -26,21 +26,17 @@ class StorageFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_storage, container, false)
 
         adapter = StorageItemAdapter { _, item ->
-            run {
-                val ingredientModel = StorageViewModel.IngredientModel(IngredientDialog.Mode.Modify)
-                ingredientModel.adapt(item)
-                val dialog = IngredientDialog(ingredientModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val ingredientModel = StorageViewModel.IngredientModel(IngredientDialog.Mode.Modify)
+                .also { it.adapt(item) }
+            val dialog = IngredientDialog(ingredientModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
         binding.fStorageRecyclerview.adapter = adapter
 
         binding.fStorageFab.setOnClickListener {
-            run {
-                val ingredientModel = StorageViewModel.IngredientModel(IngredientDialog.Mode.Add)
-                val dialog = IngredientDialog(ingredientModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val ingredientModel = StorageViewModel.IngredientModel(IngredientDialog.Mode.Add)
+            val dialog = IngredientDialog(ingredientModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
 
         return binding.root
@@ -50,8 +46,6 @@ class StorageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         storageViewModel = ViewModelProviders.of(this).get(StorageViewModel::class.java)
 
-        storageViewModel.storageList.observe(viewLifecycleOwner, Observer {
-            it?.let { adapter.data = it }
-        })
+        storageViewModel.storageList.observe(viewLifecycleOwner, Observer { adapter.data = it })
     }
 }
