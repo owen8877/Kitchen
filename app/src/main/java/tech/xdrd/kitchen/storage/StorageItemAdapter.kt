@@ -3,11 +3,13 @@ package tech.xdrd.kitchen.storage
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import tech.xdrd.kitchen.R
 import tech.xdrd.kitchen.databinding.ViewStorageIngredientBinding
 import tech.xdrd.kitchen.model.StorageIngredient
+import tech.xdrd.kitchen.ui.IconAdapter
 
 class StorageItemAdapter(private val l: (View, StorageIngredient) -> Unit) :
     RecyclerView.Adapter<StorageItemAdapter.ViewHolder>() {
@@ -39,6 +41,12 @@ class StorageItemAdapter(private val l: (View, StorageIngredient) -> Unit) :
         fun bindData(item: StorageIngredient, l: (View, StorageIngredient) -> Unit) {
             binding.item = item
             binding.root.setOnClickListener { v -> l(v, item) }
+            binding.vStorageIngredientIcon.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    binding.root.context,
+                    IconAdapter.getImage(item.name)
+                )
+            )
         }
     }
 }

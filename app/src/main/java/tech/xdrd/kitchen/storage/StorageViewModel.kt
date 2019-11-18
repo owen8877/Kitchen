@@ -39,8 +39,8 @@ class StorageViewModel : ViewModel() {
 
         fun add() = Data.execute(Realm.Transaction { realm ->
             val storageIngredient = toStorageIngredient()
-            realm.insert(storageIngredient)
             storageIngredient.addRecord(Date(), observation = true)
+            realm.insert(storageIngredient)
         })
 
         fun delete() = Data.execute(Realm.Transaction {
@@ -51,7 +51,7 @@ class StorageViewModel : ViewModel() {
         fun getHistory() = ref.records.map { record ->
             val FORMAT = SimpleDateFormat("EEE, MMM dd")
             "(${if (record.observation) "Obs" else "Pre"}) ${FORMAT.format(record.date)} - ${record.quantity}"
-        }.reduce { acc, s -> acc + '\n' + s }
+        }.let { if (it.isNotEmpty()) return it.reduce { acc, s -> acc + '\n' + s } else "" }
 
         fun refresh() = _valid.apply { value = isInputValid() }
 

@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp">
+        android:layout_height="64dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/v_storage_ingredient_guideline"
@@ -23,13 +23,13 @@
 
         <ImageView
             android:id="@+id/v_storage_ingredient_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/v_storage_ingredient_guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?attr/colorError" />
+            app:srcCompat="@drawable/ima_ingredient_null" />
 
         <TextView
             android:id="@+id/v_storage_ingredient_name"
