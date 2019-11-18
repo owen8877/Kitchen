@@ -36,39 +36,35 @@ class SupplyIngredientDialog(val model: SupplyViewModel.SupplyIngredientModel) :
 
         binding.dSupplyIngToolbar.inflateMenu(
             when (mode) {
-                Mode.Add -> R.menu.storage_add_ingredient
-                Mode.Modify -> R.menu.storage_modify_ingredient
+                Mode.Add -> R.menu.supply_add_ingredient
+                Mode.Modify -> R.menu.supply_modify_ingredient
             }
         )
         binding.dSupplyIngToolbar.setNavigationOnClickListener { run { dismiss() } }
         binding.dSupplyIngToolbar.setOnMenuItemClickListener { item ->
-            run {
-                when (item.itemId) {
-                    R.id.m_storage_ingredient_done -> {
-                        when (mode) {
-                            Mode.Add -> model.add()
-                            Mode.Modify -> model.update()
-                        }
-                        dismiss()
+            when (item.itemId) {
+                R.id.m_supply_ingredient_done -> {
+                    when (mode) {
+                        Mode.Add -> model.add()
+                        Mode.Modify -> model.update()
                     }
-                    R.id.m_storage_modify_ingredient_delete -> {
-                        AlertDialog.Builder(context!!)
-                            .setTitle("Deletion confirmation")
-                            .setMessage("Do you really want to delete this ingredient?")
-                            .setCancelable(true)
-                            .setPositiveButton("Yes") { dialog, _ ->
-                                run {
-                                    model.delete()
-                                    dialog.dismiss()
-                                    dismiss()
-                                }
-                            }
-                            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-                            .show()
-                    }
+                    dismiss()
                 }
-                true
+                R.id.m_supply_modify_ingredient_delete -> {
+                    AlertDialog.Builder(context!!)
+                        .setTitle("Deletion confirmation")
+                        .setMessage("Do you really want to delete this ingredient?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes") { dialog, _ ->
+                            model.delete()
+                            dialog.dismiss()
+                            dismiss()
+                        }
+                        .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+                        .show()
+                }
             }
+            true
         }
 
         binding.dSupplyIngTietName.addTextChangedListener(
@@ -125,7 +121,7 @@ class SupplyIngredientDialog(val model: SupplyViewModel.SupplyIngredientModel) :
 
         model.valid.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.dSupplyIngToolbar.menu.findItem(R.id.m_storage_ingredient_done)
+                binding.dSupplyIngToolbar.menu.findItem(R.id.m_supply_ingredient_done)
                     ?.isEnabled = it
             }
         })

@@ -7,11 +7,11 @@ import java.util.*
 
 open class SupplySnapshot(
     var date: Date,
-    var list: RealmList<SupplyIngredient>
+    var list: RealmList<SupplyIngredientSnapshot>
 ) : RealmObject() {
     @PrimaryKey
     private var id: String = UUID.randomUUID().toString()
 
     @Deprecated("Only used by Realm")
-    constructor() : this(Date(), RealmList<SupplyIngredient>())
+    constructor() : this(Date(), RealmList<SupplyIngredientSnapshot>())
 }

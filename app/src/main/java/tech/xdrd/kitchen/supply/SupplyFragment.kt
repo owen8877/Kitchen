@@ -1,9 +1,8 @@
 package tech.xdrd.kitchen.supply
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +16,11 @@ class SupplyFragment : Fragment() {
     private lateinit var supplyViewModel: SupplyViewModel
     private lateinit var adapter: SupplyItemAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,23 +29,19 @@ class SupplyFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_supply, container, false)
 
         adapter = SupplyItemAdapter { _, item ->
-            run {
-                val ingredientModel =
-                    SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Modify)
-                ingredientModel.adapt(item)
-                val dialog = SupplyIngredientDialog(ingredientModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val ingredientModel =
+                SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Modify)
+            ingredientModel.adapt(item)
+            val dialog = SupplyIngredientDialog(ingredientModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
         binding.fSupplyRecyclerview.adapter = adapter
 
         binding.fSupplyFab.setOnClickListener {
-            run {
-                val ingredientModel =
-                    SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Add)
-                val dialog = SupplyIngredientDialog(ingredientModel)
-                dialog.show(fragmentManager!!, dialog.tag)
-            }
+            val ingredientModel =
+                SupplyViewModel.SupplyIngredientModel(SupplyIngredientDialog.Mode.Add)
+            val dialog = SupplyIngredientDialog(ingredientModel)
+            dialog.show(fragmentManager!!, dialog.tag)
         }
 
         return binding.root
@@ -52,7 +52,35 @@ class SupplyFragment : Fragment() {
         supplyViewModel = ViewModelProviders.of(this).get(SupplyViewModel::class.java)
 
         supplyViewModel.supplyList.observe(viewLifecycleOwner, Observer {
-            it?.let { adapter.source = it }
+            adapter.source = it
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.supply_add_to_storage, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.m_supply_add_to_storage_action -> {
+                noticeAndAddSupplyIngredientToStorage()
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun noticeAndAddSupplyIngredientToStorage() {
+        AlertDialog.Builder(context!!)
+            .setTitle("Archive confirmation")
+            .setMessage("Have you added all things bought?")
+            .setCancelable(true)
+            .setPositiveButton("Yes") { dialog, _ ->
+                supplyViewModel.addSupplyIngredientToStorage()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }

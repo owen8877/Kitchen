@@ -37,4 +37,8 @@ open class SupplyIngredient(
     override fun toString(): String {
         return "SupplyIngredient(name='$name', quantity=$quantity, bought=$bought, recurrent=$recurrent, date=$date, id='$id', unitOrdinal=$unitOrdinal)"
     }
+
+    fun toStorageIngredient(): StorageIngredient {
+        return StorageIngredient(name, quantity, unit)
+    }
 }

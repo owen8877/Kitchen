@@ -62,9 +62,9 @@ class StorageViewModel : ViewModel() {
 
         fun update() {
             Data.execute(Realm.Transaction {
-                    ref.name = name
-                    ref.quantity = quantity
-                    ref.unit = Unit.values()[unit]
+                ref.name = name
+                ref.quantity = quantity
+                ref.unit = Unit.values()[unit]
                 ref.addRecord(Date(), observation = true)
             })
         }
