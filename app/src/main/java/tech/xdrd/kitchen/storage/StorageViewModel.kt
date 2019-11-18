@@ -7,6 +7,7 @@ import io.realm.Realm
 import tech.xdrd.kitchen.Data
 import tech.xdrd.kitchen.model.Ingredient.Unit
 import tech.xdrd.kitchen.model.StorageIngredient
+import java.text.SimpleDateFormat
 import java.util.*
 
 class StorageViewModel : ViewModel() {
@@ -46,6 +47,11 @@ class StorageViewModel : ViewModel() {
             ref.records.deleteAllFromRealm()
             ref.deleteFromRealm()
         })
+
+        fun getHistory() = ref.records.map { record ->
+            val FORMAT = SimpleDateFormat("EEE, MMM dd")
+            "(${if (record.observation) "Obs" else "Pre"}) ${FORMAT.format(record.date)} - ${record.quantity}"
+        }.reduce { acc, s -> acc + '\n' + s }
 
         fun refresh() = _valid.apply { value = isInputValid() }
 

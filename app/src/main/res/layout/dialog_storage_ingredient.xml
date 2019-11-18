@@ -10,6 +10,8 @@
             type="tech.xdrd.kitchen.storage.StorageViewModel.IngredientModel" />
 
         <import type="tech.xdrd.kitchen.storage.IngredientDialog.Mode" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -76,9 +78,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
+                    app:layout_constraintBottom_toBottomOf="@id/d_storage_ing_btn_m1"
                     app:layout_constraintEnd_toStartOf="@id/d_storage_ing_spinner"
                     app:layout_constraintStart_toStartOf="@+id/d_storage_ing_guideline_vertical_1"
-                    app:layout_constraintBottom_toBottomOf="@id/d_storage_ing_btn_m1"
                     app:layout_constraintTop_toBottomOf="@id/d_storage_ing_til_name">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -167,10 +169,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HISTORY"
+                    android:visibility="@{item.mode == Mode.Add ? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_btn_m1" />
+                    app:layout_constraintTop_toBottomOf="@id/d_storage_ing_btn_m1"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/d_storage_ing_txt_history"
@@ -179,10 +183,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="@{item.mode == Mode.Add ? View.GONE : View.VISIBLE}"
                     android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/d_storage_ing_caption_history"
-                    tools:text="(Obs) SAT, Nov 09 - 1.7\n(Obs) Thu, Nov 07 - 2.1\n(Pre) SAT, Nov 07 - 2.5\n" />
+                    tools:text="(Obs) SAT, Nov 09 - 1.7\n(Obs) Thu, Nov 07 - 2.1\n(Pre) SAT, Nov 07 - 2.5\n"
+                    tools:visibility="visible" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/d_storage_ing_guideline_vertical_1"

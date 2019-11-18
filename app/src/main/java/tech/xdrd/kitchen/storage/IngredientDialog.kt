@@ -104,6 +104,10 @@ class IngredientDialog(val model: StorageViewModel.IngredientModel) : FullScreen
             )
         }
 
+        if (mode == Mode.Modify) {
+            binding.dStorageIngTxtHistory.text = model.getHistory()
+        }
+
         model.valid.observe(viewLifecycleOwner, Observer {
             binding.dStorageIngToolbar.menu.findItem(R.id.m_storage_ingredient_done)?.isEnabled = it
         })
