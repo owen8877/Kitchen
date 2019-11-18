@@ -3,23 +3,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_plan">
+    app:startDestination="@+id/navigation_fragment_plan">
 
     <fragment
-        android:id="@+id/navigation_plan"
+        android:id="@+id/navigation_fragment_plan"
         android:name="tech.xdrd.kitchen.plan.PlanFragment"
         android:label="@string/fragment_plan_title"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan">
+        <action
+            android:id="@+id/action_navigation_fragment_plan_to_navigation_dialog_plan"
+            app:destination="@id/navigation_dialog_plan"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_storage"
+        android:id="@+id/navigation_fragment_storage"
         android:name="tech.xdrd.kitchen.storage.StorageFragment"
         android:label="@string/fragment_storage_title"
-        tools:layout="@layout/fragment_storage" />
+        tools:layout="@layout/fragment_storage">
+        <action
+            android:id="@+id/action_navigation_fragment_storage_to_navigation_dialog_storage"
+            app:destination="@id/navigation_dialog_storage"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_supply"
+        android:id="@+id/navigation_fragment_supply"
         android:name="tech.xdrd.kitchen.supply.SupplyFragment"
         android:label="@string/fragment_supply_title"
-        tools:layout="@layout/fragment_supply" />
+        tools:layout="@layout/fragment_supply">
+        <action
+            android:id="@+id/action_navigation_fragment_supply_to_navigation_dialog_supply"
+            app:destination="@id/navigation_dialog_supply"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dialog_plan"
+        android:name="tech.xdrd.kitchen.plan.PlanDialog"
+        android:label="PlanDialog" />
+
+    <fragment
+        android:id="@+id/navigation_dialog_storage"
+        android:name="tech.xdrd.kitchen.storage.IngredientDialog"
+        android:label="StorageDialog" />
+
+    <fragment
+        android:id="@+id/navigation_dialog_supply"
+        android:name="tech.xdrd.kitchen.supply.SupplyIngredientDialog"
+        android:label="SupplyDialog" />
 </navigation>
