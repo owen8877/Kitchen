@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import tech.xdrd.kitchen.R
 
 // <a href="https://www.freepik.com/free-photos-vectors/brochure">Brochure vector created by freepik - www.freepik.com</a>
+// <a href="https://www.freepik.com/free-photos-vectors/food">Food vector created by macrovector - www.freepik.com</a>
 // https://github.com/berteh/svg-objects-export
 object IconAdapter {
     val DefaultValue = R.drawable.ima_ingredient_null

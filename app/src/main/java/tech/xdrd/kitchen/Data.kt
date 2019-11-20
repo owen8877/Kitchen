@@ -25,7 +25,6 @@ object Data {
 //                    old <= 1 -> {}
 //                }
 //            }}
-            .deleteRealmIfMigrationNeeded()
             .build()
         realm = Realm.getInstance(config)
     }
